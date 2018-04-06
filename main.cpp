@@ -11,17 +11,15 @@
  * Created on April 2, 2018, 2:35 PM
  */
 #include <string>
-
+#include "HuffmanNode.h"
 using namespace std;
-int getint(){
-    int i;
-    return i;
-}
+using namespace DBXMEL004;
 /*
  * 
  */
 int main(int argc, char** argv) {
- 
+    HuffmanTree t ("test", "out");
+    t.generate_frequency_table();
 }
 
 

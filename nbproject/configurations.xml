@@ -19,6 +19,7 @@
                    projectFiles="true">
       <itemPath>HuffmanNode.cpp</itemPath>
       <itemPath>HuffmanTree.cpp</itemPath>
+      <itemPath>Testing.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -54,6 +55,8 @@
       </item>
       <item path="Makefile" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Testing.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="catch.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
@@ -86,6 +89,8 @@
       <item path="HuffmanTree.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Makefile" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Testing.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="catch.hpp" ex="false" tool="3" flavor2="0">
       </item>

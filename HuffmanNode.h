@@ -16,6 +16,9 @@
 
 #include <cstdlib>
 #include <memory>
+#include <queue>
+#include <unordered_map>
+#include <iterator>
 
 namespace DBXMEL004 {
 
@@ -34,14 +37,25 @@ namespace DBXMEL004 {
         std::shared_ptr<HuffmanNode> rightNode, leftNode;
     };
 
-    struct Compare : public std::binary_function<HuffmanNode, HuffmanNode, bool> {
-
-        bool compare(const HuffmanNode& a, const HuffmanNode& b) {
+    struct comparator : public std::binary_function<HuffmanNode, HuffmanNode, bool> {
+        bool operator ()(const HuffmanNode& a, const HuffmanNode& b) {
             return a < b;
         }
     };
     
-
+    class HuffmanTree {
+    public:
+        /**
+         * needs buid
+         * compress
+         */
+        HuffmanTree(std::string ifname, std::string ofname);
+        void generate_frequency_table(void);
+        std::priority_queue <HuffmanNode, std::vector<HuffmanNode>, comparator> tree_queue;
+        std::string infile_name, outfile_name;
+        HuffmanNode root;
+        std::unordered_map<char, uint32_t> char_map;
+    };
 };
 #endif /* HUFFMANNODE_H */
 
