@@ -19,14 +19,14 @@ using namespace std;
 /**
  * Default constructor of the HuffmanNode
  */
-HuffmanNode::HuffmanNode() : frequencey_count(0) {
+HuffmanNode::HuffmanNode() {
 }
 
 /**
  * Copy Constructor for the class HuffmanNode
  * @param orig
  */
-HuffmanNode::HuffmanNode(const HuffmanNode& orig) : data(orig.data), frequencey_count(orig.frequencey_count),
+HuffmanNode::HuffmanNode(const HuffmanNode& orig) : data(orig.data), frequency_count(orig.frequency_count),
 rightNode(orig.rightNode), leftNode(orig.leftNode) {
 
 }
@@ -36,9 +36,9 @@ rightNode(orig.rightNode), leftNode(orig.leftNode) {
  * @param moveFrom
  */
 HuffmanNode::HuffmanNode(HuffmanNode&& moveFrom) :
-data(moveFrom.data), frequencey_count(moveFrom.frequencey_count), rightNode(moveFrom.rightNode), leftNode(moveFrom.leftNode) {
+data(moveFrom.data), frequency_count(moveFrom.frequency_count), rightNode(moveFrom.rightNode), leftNode(moveFrom.leftNode) {
     moveFrom.data = 0;
-    moveFrom.frequencey_count = 0;
+    moveFrom.frequency_count = 0;
     moveFrom.leftNode.reset();
     moveFrom.rightNode.reset();
 }
@@ -51,7 +51,7 @@ data(moveFrom.data), frequencey_count(moveFrom.frequencey_count), rightNode(move
 HuffmanNode& HuffmanNode::operator=(const HuffmanNode& orig) {
     if (this != &orig) {
         data = orig.data;
-        frequencey_count = orig.frequencey_count;
+        frequency_count = orig.frequency_count;
         rightNode.reset(orig.rightNode.get());
         leftNode.reset(orig.leftNode.get());
     }
@@ -66,11 +66,11 @@ HuffmanNode& HuffmanNode::operator=(HuffmanNode&& moveFrom) {
     //check if self assignment move
     if ((&moveFrom != this)) {
         data = moveFrom.data;
-        frequencey_count = moveFrom.frequencey_count;
+        frequency_count = moveFrom.frequency_count;
         leftNode.reset(moveFrom.leftNode.get());
         rightNode.reset(moveFrom.rightNode.get());
         moveFrom.data = 0;
-        moveFrom.frequencey_count = 0;
+        moveFrom.frequency_count = 0;
         moveFrom.leftNode.reset();
         moveFrom.rightNode.reset();
     }
@@ -99,6 +99,5 @@ HuffmanNode::~HuffmanNode() {
  * @return bool value to answer if the current frequency_count is less than the one we comparing to
  */
 bool HuffmanNode::operator<(const HuffmanNode& a) const {
-    return this->frequencey_count<a.frequencey_count;
+    return this->frequency_count> a.frequency_count;
 }
-

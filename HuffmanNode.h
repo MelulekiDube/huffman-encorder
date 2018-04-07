@@ -24,7 +24,7 @@ namespace DBXMEL004 {
 
     class HuffmanNode {
     public:
-        HuffmanNode(); // Default constructor
+        HuffmanNode(); // Default constructor 
         HuffmanNode(const HuffmanNode& orig); // Copy constructor
         HuffmanNode(HuffmanNode && moveFrom); // move constructor
         HuffmanNode& operator=(const HuffmanNode& coyFrom); //Assignment operator
@@ -33,16 +33,19 @@ namespace DBXMEL004 {
         //        //to be moved
         bool operator<(const HuffmanNode& a) const;
         char data; // character of that the node represents
-        int frequencey_count; // the frequency count of the current char
+        int frequency_count; // the frequency count of the current char
         std::shared_ptr<HuffmanNode> rightNode, leftNode;
     };
 
     struct comparator : public std::binary_function<HuffmanNode, HuffmanNode, bool> {
-        bool operator ()(const HuffmanNode& a, const HuffmanNode& b) {
+
+        bool operator()(const HuffmanNode& a, const HuffmanNode& b) {
             return a < b;
         }
     };
-    
+
+    typedef std::pair<char, int> mypair;
+
     class HuffmanTree {
     public:
         /**
@@ -51,6 +54,9 @@ namespace DBXMEL004 {
          */
         HuffmanTree(std::string ifname, std::string ofname);
         void generate_frequency_table(void);
+        void insert(void);
+        void build(void);
+        HuffmanNode& compute(HuffmanNode &lhs, HuffmanNode rhs);
         std::priority_queue <HuffmanNode, std::vector<HuffmanNode>, comparator> tree_queue;
         std::string infile_name, outfile_name;
         HuffmanNode root;
