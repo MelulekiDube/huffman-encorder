@@ -19,7 +19,8 @@ using namespace std;
 /**
  * Default constructor of the HuffmanNode
  */
-HuffmanNode::HuffmanNode() {
+HuffmanNode::HuffmanNode():data('\0'){
+    
 }
 
 /**
@@ -30,7 +31,6 @@ HuffmanNode::HuffmanNode(const HuffmanNode& orig) : data(orig.data), frequency_c
 rightNode(orig.rightNode), leftNode(orig.leftNode) {
 
 }
-
 /**
  * Move constructor 
  * @param moveFrom
@@ -76,11 +76,12 @@ HuffmanNode& HuffmanNode::operator=(HuffmanNode&& moveFrom) {
     }
     return *this;
 }
-
 /**
  * Destructor for the class HuffmanNode
  */
 HuffmanNode::~HuffmanNode() {
+    leftNode.reset();
+    rightNode.reset();
 }
 
 /**
@@ -100,4 +101,10 @@ HuffmanNode::~HuffmanNode() {
  */
 bool HuffmanNode::operator<(const HuffmanNode& a) const {
     return this->frequency_count> a.frequency_count;
+}
+
+bool HuffmanNode::operator!() const{
+    bool checkdata=(data=='\0');
+    bool checknodes=((!rightNode.get())&&(!leftNode.get()));
+    return checkdata &&checknodes;
 }

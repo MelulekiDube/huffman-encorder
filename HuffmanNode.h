@@ -32,9 +32,11 @@ namespace DBXMEL004 {
         ~HuffmanNode(); //Destructor 
         //        //to be moved
         bool operator<(const HuffmanNode& a) const;
+        bool operator!()const;
         char data; // character of that the node represents
         int frequency_count; // the frequency count of the current char
-        std::shared_ptr<HuffmanNode> rightNode, leftNode;
+        std::shared_ptr<HuffmanNode> rightNode;
+        std::shared_ptr<HuffmanNode> leftNode;
     };
 
     struct comparator : public std::binary_function<HuffmanNode, HuffmanNode, bool> {
@@ -56,10 +58,10 @@ namespace DBXMEL004 {
         void generate_frequency_table(void);
         void insert(void);
         void build(void);
-        HuffmanNode& compute(HuffmanNode &lhs, HuffmanNode rhs);
+        void compute(HuffmanNode &lhs, HuffmanNode &rhs);
         std::priority_queue <HuffmanNode, std::vector<HuffmanNode>, comparator> tree_queue;
+        void printcodes(const HuffmanNode &lhs, std::string str);
         std::string infile_name, outfile_name;
-        HuffmanNode root;
         std::unordered_map<char, uint32_t> char_map;
     };
 };

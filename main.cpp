@@ -18,8 +18,7 @@ using namespace DBXMEL004;
  * 
  */
 int main(int argc, char** argv) {
-    HuffmanTree t ("test", "out");
-    t.generate_frequency_table();
+    char c;
 }
 
 

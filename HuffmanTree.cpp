@@ -29,7 +29,6 @@ void HuffmanTree::generate_frequency_table() {
     /**
      * Read every charecter and add it to the unordered map
      */
-
     infile>>tempchar;
     while (!infile.eof()) {
         auto result = char_map.find(tempchar);
@@ -42,7 +41,7 @@ void HuffmanTree::generate_frequency_table() {
         }
         infile>>tempchar;
     }
-    insert();
+    infile.close();
 }
 
 void HuffmanTree::insert() {
@@ -55,19 +54,29 @@ void HuffmanTree::insert() {
 }
 
 void HuffmanTree::build() {
-    if(tree_queue.size()==1){
-        return;
-    }else{
-        HuffmanNode temp1=tree_queue.top(); tree_queue.pop();
-        HuffmanNode temp2 = tree_queue.top(); tree_queue.pop();
-        compute(temp1, temp2);
+    while (tree_queue.size() > 1) {
+
+        //         Extract the two minimum
+        // freq items from min heap
+        HuffmanNode top;
+        top.leftNode = make_shared<HuffmanNode>(tree_queue.top());
+        tree_queue.pop();
+        top.rightNode = make_shared<HuffmanNode>(tree_queue.top());
+        tree_queue.pop();
+        // 
+        top.frequency_count = (*top.leftNode).frequency_count + (*top.leftNode).frequency_count;
+        cout << tree_queue.top().leftNode;
+        tree_queue.push(top);
     }
+    printcodes(tree_queue.top(), "");
 }
 
-HuffmanNode& HuffmanTree::compute(HuffmanNode& lhs, HuffmanNode rhs) {
-    HuffmanNode temp;
-    temp.frequency_count=lhs.frequency_count+rhs.frequency_count;
-    temp.data='0';
-    tree_queue.push(temp);
-    build();
+void HuffmanTree::printcodes(const HuffmanNode& root, string str) {
+    if (!root) return;
+    if (root.data != 0) cout << root.data << str << endl;
+    HuffmanNode& lnode = *root.leftNode;
+    HuffmanNode& rnode = *root.rightNode;
+    printcodes(lnode, str += '0');
+    printcodes(rnode, str += '1');
 }
+//  
