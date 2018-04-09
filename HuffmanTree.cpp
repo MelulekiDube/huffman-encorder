@@ -13,17 +13,18 @@
 using namespace std;
 using namespace DBXMEL004;
 
-HuffmanTree::HuffmanTree(std::string ifname, std::string ofname)
-: infile_name(ifname), outfile_name(ofname) {
+HuffmanTree::HuffmanTree() {
+}
 
+HuffmanTree::~HuffmanTree() {
 }
 
 /**
  * generates the frequency table which is basically the unordermap
  */
-void HuffmanTree::generate_frequency_table() {
+void HuffmanTree::generate_frequency_table(std::string ifname, std::string ofname) {
     ifstream infile;
-    infile.open(infile_name);
+    infile.open(ifname);
 
     unsigned char tempchar;
     /**
@@ -46,37 +47,32 @@ void HuffmanTree::generate_frequency_table() {
 
 void HuffmanTree::insert() {
     for (const auto & pair : char_map) {
-        HuffmanNode tempHuff;
-        tempHuff.frequency_count = pair.second;
-        tempHuff.data = pair.first;
-        tree_queue.push(tempHuff);
+        HuffmanNode tempNode(pair.first, pair.second);
+        tree_queue.push(tempNode);
     }
 }
 
-void HuffmanTree::build() {
+std::shared_ptr<HuffmanNode>& HuffmanTree::build() {
     while (tree_queue.size() > 1) {
-
-        //         Extract the two minimum
-        // freq items from min heap
         HuffmanNode top;
         top.leftNode = make_shared<HuffmanNode>(tree_queue.top());
         tree_queue.pop();
         top.rightNode = make_shared<HuffmanNode>(tree_queue.top());
         tree_queue.pop();
-        // 
-        top.frequency_count = (*top.leftNode).frequency_count + (*top.leftNode).frequency_count;
-        cout << tree_queue.top().leftNode;
+        top.frequency_count = (top.leftNode->frequency_count)+(top.rightNode->frequency_count);
         tree_queue.push(top);
     }
-    printcodes(tree_queue.top(), "");
+    root = make_shared<HuffmanNode>(tree_queue.top());
+    printcodes(root, "");
+    return root;
 }
 
-void HuffmanTree::printcodes(const HuffmanNode& root, string str) {
-    if (!root) return;
-    if (root.data != 0) cout << root.data << str << endl;
-    HuffmanNode& lnode = *root.leftNode;
-    HuffmanNode& rnode = *root.rightNode;
-    printcodes(lnode, str += '0');
-    printcodes(rnode, str += '1');
+void HuffmanTree::printcodes(const shared_ptr<HuffmanNode> &root, string str) {
+    if (root.get() == nullptr) return;
+    if ((*root).data != '\0') { // this is the leaf which is the las node containing data
+        cout << (*root).data << " " << str << endl;
+    }
+    printcodes(root->leftNode, str + "0");
+    printcodes(root->rightNode, str + "1");
 }
-//  
+//      
