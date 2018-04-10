@@ -48,20 +48,27 @@ namespace DBXMEL004 {
     };
 
     typedef std::pair<char, int> mypair;
+    typedef std::priority_queue <HuffmanNode, std::vector<HuffmanNode>, comparator> maxheap;
+    typedef std::unordered_map<char, std::string> code_map;
+    typedef std::unordered_map<char, int> filechars;
 
     class HuffmanTree {
     public:
+        std::shared_ptr<HuffmanNode> root;
         HuffmanTree();
         ~HuffmanTree();
+        std::shared_ptr<HuffmanNode>& build(maxheap tree);
+    };
+
+    class HuffmanEncoding {
+    public:
+        maxheap tree_queue;
+        code_map codedmap;
+        filechars char_map;
         void generate_frequency_table(std::string ifname, std::string ofname);
-        void insert(void);
-        void printcodes(const std::shared_ptr<HuffmanNode>& root, std::string str);
-        std::shared_ptr<HuffmanNode>& build();
-
-
-        std::priority_queue <HuffmanNode, std::vector<HuffmanNode>, comparator> tree_queue;
-        std::unordered_map<char, int> char_map;
-        std::shared_ptr<HuffmanNode> root;
+        void insert_to_queue(void);
+        void compute_codes(const std::shared_ptr<HuffmanNode>& root, std::string str);
+        bool compress();
     };
 };
 #endif /* HUFFMANNODE_H */

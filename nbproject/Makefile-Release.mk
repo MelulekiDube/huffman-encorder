@@ -35,6 +35,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/HuffmanEncoding.o \
 	${OBJECTDIR}/HuffmanNode.o \
 	${OBJECTDIR}/HuffmanTree.o \
 	${OBJECTDIR}/Testing.o \
@@ -64,6 +65,11 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/assignment3.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/assignment3 ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/HuffmanEncoding.o: HuffmanEncoding.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/HuffmanEncoding.o HuffmanEncoding.cpp
 
 ${OBJECTDIR}/HuffmanNode.o: HuffmanNode.cpp
 	${MKDIR} -p ${OBJECTDIR}
