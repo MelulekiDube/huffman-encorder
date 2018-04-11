@@ -6,7 +6,7 @@
 #include "HuffmanNode.h"
 #include <fstream>
 #include <iostream>
-
+#include <bitset>
 using namespace std;
 using namespace DBXMEL004;
 
@@ -41,13 +41,20 @@ void HuffmanEncoding::insert_to_queue() {
         HuffmanNode tempNode(pair.first, pair.second);
         tree_queue.push(tempNode);
     }
+    compute_codes(t.build(tree_queue), 0);
+    for(const auto it:codedmap){
+        cout<<it.first<<" "<<std::bitset<4>(it.second)<<endl;
+    }
 }
 
-void HuffmanEncoding::compute_codes(const std::shared_ptr<HuffmanNode>& root, std::string str) {
-    if (root.get() == nullptr) return;
+void HuffmanEncoding::compute_codes(const std::shared_ptr<HuffmanNode>& root, int a) {
+    if (!root.get()) return;
     if ((*root).data != '\0') { // this is the leaf which is the las node containing data
-        codedmap.insert(make_pair<char, string>(root->data, str));
+        pair<char, int> temp(root->data, a);
+        codedmap.insert(temp);
     }
-    compute_codes(root->leftNode, str + "0");
-    compute_codes(root->rightNode, str + "1");
+    a<<=1;
+    compute_codes(root->leftNode, a+0);
+    compute_codes(root->rightNode, a+1);
+    
 }

@@ -41,9 +41,9 @@ rightNode(orig.rightNode), leftNode(orig.leftNode) {
  * @param moveFrom
  */
 HuffmanNode::HuffmanNode(HuffmanNode&& moveFrom) :
-data(moveFrom.data), frequency_count(moveFrom.frequency_count){
-    leftNode=moveFrom.leftNode;
-    rightNode= moveFrom.rightNode;
+data(move(moveFrom.data)), frequency_count(move(moveFrom.frequency_count)){
+    leftNode=move(moveFrom.leftNode);
+    rightNode= move(moveFrom.rightNode);
     moveFrom.data = 0;
     moveFrom.frequency_count = 0;
 }
@@ -57,8 +57,8 @@ HuffmanNode& HuffmanNode::operator=(const HuffmanNode& orig) {
     if (this != &orig) {
         data = orig.data;
         frequency_count = orig.frequency_count;
-        rightNode = orig.rightNode;
-        leftNode = orig.leftNode;
+        rightNode =move(orig.rightNode);
+        leftNode = move(orig.leftNode);
     }
     return *this;
 }
@@ -71,8 +71,8 @@ HuffmanNode& HuffmanNode::operator=(const HuffmanNode& orig) {
 HuffmanNode& HuffmanNode::operator=(HuffmanNode&& moveFrom) {
     //check if self assignment move
     if ((&moveFrom != this)) {
-        data = moveFrom.data;
-        frequency_count = moveFrom.frequency_count;
+        data = move(moveFrom.data);
+        frequency_count = move(moveFrom.frequency_count);
         leftNode=moveFrom.leftNode;
         rightNode=moveFrom.rightNode;
         moveFrom.data = 0;
@@ -104,10 +104,4 @@ HuffmanNode::~HuffmanNode() {
  */
 bool HuffmanNode::operator<(const HuffmanNode& a) const {
     return this->frequency_count > a.frequency_count;
-}
-
-bool HuffmanNode::operator!() const {
-    bool checkdata = (data == '\0');
-    bool checknodes = ((rightNode.get() == nullptr)&&(leftNode.get() == nullptr));
-    return checkdata &&checknodes;
 }

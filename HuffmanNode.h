@@ -33,7 +33,7 @@ namespace DBXMEL004 {
         ~HuffmanNode(); //Destructor 
         //        //to be moved
         bool operator<(const HuffmanNode& a) const;
-        bool operator!()const;
+       
         char data; // character of that the node represents
         int frequency_count; // the frequency count of the current char
         std::shared_ptr<HuffmanNode> rightNode;
@@ -49,7 +49,7 @@ namespace DBXMEL004 {
 
     typedef std::pair<char, int> mypair;
     typedef std::priority_queue <HuffmanNode, std::vector<HuffmanNode>, comparator> maxheap;
-    typedef std::unordered_map<char, std::string> code_map;
+    typedef std::unordered_map<char, int> code_map;
     typedef std::unordered_map<char, int> filechars;
 
     class HuffmanTree {
@@ -65,9 +65,10 @@ namespace DBXMEL004 {
         maxheap tree_queue;
         code_map codedmap;
         filechars char_map;
+        HuffmanTree t;
         void generate_frequency_table(std::string ifname, std::string ofname);
         void insert_to_queue(void);
-        void compute_codes(const std::shared_ptr<HuffmanNode>& root, std::string str);
+        void compute_codes(const std::shared_ptr<HuffmanNode>& root, int a);
         bool compress();
     };
 };
