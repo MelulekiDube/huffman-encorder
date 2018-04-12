@@ -1,0 +1,13 @@
+This is a readme file containing information to running the application huffencode
+Make file:
+	-to make test file run make test and to make the application with the driver class run make
+	-u have to first make test files in order to run test the runnable file created for the test is huffencode_test
+	-make test produces the runnable file for running tests and for running objects
+	-to run the test u can then use ./huffencode_test.run 
+	-the main file for running the application is stored in huffencode
+	- to run the main application use ./huffencode file_to_encrypt output_file
+Application:
+	-running the application produces 2 outputs,
+		1. the first is an .txt file of that results when u write the bitstreams of the code. this file is usually bigger than the input
+		2. the compressed .bin file that is a result of writing packed bits
+	Extra credit work done is done
