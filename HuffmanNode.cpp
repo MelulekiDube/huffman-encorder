@@ -19,7 +19,7 @@ using namespace std;
 /**
  * Default constructor of the HuffmanNode
  */
-HuffmanNode::HuffmanNode() : data('\0'), frequency_count(0){
+HuffmanNode::HuffmanNode() : data(-1), frequency_count(0){
 
 }
 
@@ -57,8 +57,8 @@ HuffmanNode& HuffmanNode::operator=(const HuffmanNode& orig) {
     if (this != &orig) {
         data = orig.data;
         frequency_count = orig.frequency_count;
-        rightNode =move(orig.rightNode);
-        leftNode = move(orig.leftNode);
+        rightNode =orig.rightNode;
+        leftNode = orig.leftNode;
     }
     return *this;
 }
@@ -73,8 +73,8 @@ HuffmanNode& HuffmanNode::operator=(HuffmanNode&& moveFrom) {
     if ((&moveFrom != this)) {
         data = move(moveFrom.data);
         frequency_count = move(moveFrom.frequency_count);
-        leftNode=moveFrom.leftNode;
-        rightNode=moveFrom.rightNode;
+        leftNode=move (moveFrom.leftNode);
+        rightNode=move(moveFrom.rightNode);
         moveFrom.data = 0;
         moveFrom.frequency_count = 0;
     }

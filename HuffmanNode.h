@@ -19,6 +19,7 @@
 #include <queue>
 #include <unordered_map>
 #include <iterator>
+#include <bitset>
 
 namespace DBXMEL004 {
 
@@ -33,7 +34,7 @@ namespace DBXMEL004 {
         ~HuffmanNode(); //Destructor 
         //        //to be moved
         bool operator<(const HuffmanNode& a) const;
-       
+
         char data; // character of that the node represents
         int frequency_count; // the frequency count of the current char
         std::shared_ptr<HuffmanNode> rightNode;
@@ -46,11 +47,16 @@ namespace DBXMEL004 {
             return a < b;
         }
     };
-
+    typedef std::bitset<8> byte;
     typedef std::pair<char, int> mypair;
     typedef std::priority_queue <HuffmanNode, std::vector<HuffmanNode>, comparator> maxheap;
     typedef std::unordered_map<char, int> code_map;
-    typedef std::unordered_map<char, int> filechars;
+
+    typedef struct {
+        char data;
+        int coded_char;
+        int bit_length;
+    } code_for_char;
 
     class HuffmanTree {
     public:
@@ -63,13 +69,21 @@ namespace DBXMEL004 {
     class HuffmanEncoding {
     public:
         maxheap tree_queue;
-        code_map codedmap;
-        filechars char_map;
+        std::vector<code_for_char> codedmap;
+        code_map char_map;
         HuffmanTree t;
+        int w8_bits = 8;
+        int Bit_mask = (1 << w8_bits) - 1;
         void generate_frequency_table(std::string ifname, std::string ofname);
         void insert_to_queue(void);
-        void compute_codes(const std::shared_ptr<HuffmanNode>& root, int a);
-        bool compress();
+        void compute_codes(const std::shared_ptr<HuffmanNode>& root, int code, int bits);
+        void encode(std::string ifname, std::string ofname);
+        void decode(std::string ifname, std::string ofname);
+        void write_to_file(byte* arr, const std::string& offname);
+        void write_codes_tofile(std::string fileName);
+        int getIndex(const char & dat);
+        void encode_str(std::string s);
+        void compress(std::string inname, std::string ofname);
     };
 };
 #endif /* HUFFMANNODE_H */
