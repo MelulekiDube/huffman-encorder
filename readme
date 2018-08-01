@@ -10,4 +10,5 @@ Application:
 	-running the application produces 2 outputs,
 		1. the first is an .txt file of that results when u write the bitstreams of the code. this file is usually bigger than the input
 		2. the compressed .bin file that is a result of writing packed bits
+		3. the .hdr file produced with the codes uses the corresponding ascii values of the charecters and not the charecters 
 	Extra credit work done is done
